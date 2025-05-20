@@ -3,16 +3,19 @@ package main
 import (
 	"errors"
 	"math/rand"
+	"os"
 	"time"
 
+	"go.elastic.co/ecszap"
 	"go.uber.org/zap"
 )
 
 func main() {
-	logger, err := zap.NewProduction()
-	if err != nil {
-		panic("Failed to initialize logger: " + err.Error())
-	}
+	encoderConfig := ecszap.NewDefaultEncoderConfig()
+	core := ecszap.NewCore(encoderConfig, os.Stdout, zap.DebugLevel)
+	logger := zap.New(core, zap.AddCaller())
+	logger = logger.Named("logging-demo")
+
 	defer logger.Sync()
 
 	logger.Info("Starting the Task Processor")
