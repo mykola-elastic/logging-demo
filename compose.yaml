@@ -1,0 +1,16 @@
+services:
+  writer:
+    build:
+      context: .
+      labels:
+        co.elastic.logs/json.overwrite_keys: true
+        co.elastic.logs/json.add_error_key: true
+        co.elastic.logs/json.expand_keys: true
+  filebeat:
+    image: "docker.elastic.co/beats/filebeat:9.0.0"
+    user: root
+    command: --strict.perms=false -e
+    volumes:
+      - "./filebeat.docker.yml:/usr/share/filebeat/filebeat.yml:ro"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "/var/lib/docker/containers:/var/lib/docker/containers:ro"
