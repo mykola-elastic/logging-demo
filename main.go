@@ -19,20 +19,20 @@ func main() {
 
 	tasks := []string{"task1", "task2", "task3", "task4", "task5"}
 
-	for _, task := range tasks {
-		logger.Info("Processing task", zap.String("task", task))
+	for {
+		for _, task := range tasks {
+			logger.Info("Processing task", zap.String("task", task))
 
-		err := processTask(task)
-		if err != nil {
-			logger.Error("Task processing failed",
-				zap.String("task", task),
-				zap.Error(err))
-		} else {
-			logger.Info("Task completed successfully", zap.String("task", task))
+			err := processTask(task)
+			if err != nil {
+				logger.Error("Task processing failed",
+					zap.String("task", task),
+					zap.Error(err))
+			} else {
+				logger.Info("Task completed successfully", zap.String("task", task))
+			}
 		}
 	}
-
-	logger.Info("Finished processing all tasks")
 }
 
 // processTask simulates processing a task and randomly returns an error
