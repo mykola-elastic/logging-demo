@@ -38,7 +38,7 @@ func main() {
 // processTask simulates processing a task and randomly returns an error
 func processTask(task string) error {
 	// Simulate random processing time
-	time.Sleep(time.Millisecond * time.Duration(rand.Intn(500)))
+	time.Sleep(time.Millisecond * time.Duration(rand.Intn(1500)))
 
 	// Simulate a random error for demo purposes
 	if rand.Intn(10) > 7 { // 30% chance of failure
