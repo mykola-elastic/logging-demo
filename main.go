@@ -9,23 +9,19 @@ import (
 )
 
 func main() {
-	// Initialize Zap logger
-	logger, err := zap.NewProduction() // Creates a production-ready logger
+	logger, err := zap.NewProduction()
 	if err != nil {
 		panic("Failed to initialize logger: " + err.Error())
 	}
-	defer logger.Sync() // Flushes buffer, if any, before program exit
+	defer logger.Sync()
 
 	logger.Info("Starting the Task Processor")
 
-	// Simulate a list of tasks
 	tasks := []string{"task1", "task2", "task3", "task4", "task5"}
 
-	// Process each task
 	for _, task := range tasks {
 		logger.Info("Processing task", zap.String("task", task))
 
-		// Simulate task processing
 		err := processTask(task)
 		if err != nil {
 			logger.Error("Task processing failed",
